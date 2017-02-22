@@ -1,0 +1,64 @@
+<!--Created: February 22, 2017
+    Mid Term Shopping List
+    Jesse Baril
+    200226521
+    This is the layout page for the Shopping List-->
+<ion-header center text-center>
+  <ion-navbar>
+    <ion-title>Shopping List</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content center text-center>
+  <!-- Add Item button -->
+  <button ion-button round block (click)="addItem()">
+    <ion-icon name="add"></ion-icon>
+    Add New Item
+  </button>
+
+  <ion-item text-wrap>
+        <ion-label>
+          Item
+        </ion-label>
+        <ion-label>
+          Quantity
+        </ion-label>
+  </ion-item>
+
+
+  <ion-list inset *ngFor="let listItem of listItems | async; let i = index;">
+    <ion-item-sliding (click)="switchComplete(listItem.$key, listItem.done)">
+      
+      <!-- If Item is completed show normally -->
+      <ion-item text-wrap *ngIf="listItem.done === true">
+        <ion-label>
+          <s> {{listItem.itemName}} </s>
+        </ion-label>
+        <ion-label>
+          <s> {{listItem.itemQuantity}} </s>
+        </ion-label>
+        <ion-checkbox color="positive" checked="true" disabled="true"></ion-checkbox>
+      </ion-item>
+
+      <!-- If item is owned, check box and cross line through text -->
+      <ion-item text-wrap *ngIf="listItem.done === false">
+        <ion-label>
+          {{listItem.itemName}}
+        </ion-label>
+        <ion-label>
+          {{listItem.itemQuantity}}
+        </ion-label>
+        <ion-checkbox color="positive" checked="false" (click)="switchComplete(listItem.$key, listItem.done)"></ion-checkbox>
+      </ion-item>
+      
+      <!-- Options for item slide -->
+      <ion-item-options>
+        <button ion-button large color="primary" (click)="updateItem(listItem.$key, listItem.itemName, listItem.itemQuantity)">
+          <ion-icon name="md-settings"></ion-icon>
+        </button>
+        <button ion-button large color="danger" (click)="removeItem(listItem.$key)">
+          <ion-icon name="md-close"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

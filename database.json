@@ -1,0 +1,9 @@
+{
+    "shoppingList": [
+        {
+            "itemName": "Eggs",
+            "itemQuantity": 1,
+            "done": false
+        }
+    ]
+}
